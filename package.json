@@ -1,0 +1,19 @@
+{
+  "name": "codecademy-minesweeper",
+  "version": "1.0.0",
+  "description": "Codecademy Minesweeper Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mpkono/codecademy-minesweeper.git"
+  },
+  "author": "Mike K.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mpkono/codecademy-minesweeper/issues"
+  },
+  "homepage": "https://github.com/mpkono/codecademy-minesweeper#readme"
+}
