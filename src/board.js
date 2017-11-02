@@ -1,26 +1,4 @@
-class Game {
-  constructor(numberOfRows, numberOfColumns, numberOfBombs) {
-    this._board = new Board(numberOfRows, numberOfColumns, numberOfBombs);
-  }
-
-  playMove(rowIndex, columnIndex) {
-    this._board.flipTile(rowIndex, columnIndex);
-    if (this._board.playerBoard[rowIndex][columnIndex] === 'B') {
-      console.log('Game Over');
-      this._board.print();
-    } else if (!this._board.hasSafeTiles()){
-      console.log('You Win');
-      this._board.print();
-    } else {
-      console.log('Current Board:')
-      this._board.print();
-    }
-  }
-}
-
-
-
-class Board {
+export class Board {
   constructor(numberOfRows, numberOfColumns, numberOfBombs) {
     this._numberOfBombs = numberOfBombs;
     this._numberOfTiles = numberOfRows * numberOfColumns;
@@ -60,18 +38,19 @@ class Board {
     ];
     const numberOfRows = this._bombBoard.length;
     const numberOfColumns = this._bombBoard[0].length;
-    let numberOfBombs = 0;
+    //console.log('numberOfRows = ' + numberOfRows + '. numberOfColumns = ' + numberOfColumns);
+    let numberOfNeighborBombs = 0;
     neighborOffsets.forEach(offset => {
       const neighborRowIndex = rowIndex + offset[0];
       const neighborColumnIndex = columnIndex + offset[1];
-      if (neighborRowIndex >= 0 && neighborRowIndex <= numberOfRows && neighborColumnIndex >= 0 && neighborColumnIndex <= numberOfColumns) {
+      if (neighborRowIndex >= 0 && neighborRowIndex < numberOfRows && neighborColumnIndex >= 0 && neighborColumnIndex < numberOfColumns) {
         if (this._bombBoard[neighborRowIndex][neighborColumnIndex] === 'B') {
-          this._numberOfBombs++;
+          numberOfNeighborBombs++;
         }
       }
     });
 
-    return numberOfBombs;
+    return numberOfNeighborBombs;
   }
 
   hasSafeTiles() {
@@ -81,6 +60,11 @@ class Board {
   print() {
     console.log(this._playerBoard.map(row => row.join(' | ')).join('\n'));
   }
+
+  printBomb() {
+    console.log(this._bombBoard.map(row => row.join(' | ')).join('\n'));
+  }
+
 
   static generatePlayerBoard(numberOfRows, numberOfColumns) {
     let board = [];
@@ -117,9 +101,3 @@ class Board {
   }
 
 }
-
-
-const g = new Game(3, 3, 1);
-g.playMove(0, 0);
-g.playMove(1, 1);
-g.playMove(2, 2);
